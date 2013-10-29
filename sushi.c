@@ -11,13 +11,13 @@ char *getstr(void);
 int main(void)
 {
     char *command;
-    char exit_command[] = "exit\n";
 
-    while (strcmp(command, exit_command) != 0) {
+    while (1) {
         command = getstr();
-        if (command[0] != '\n') { 
+        if (command[0] != '\0') { 
             /* don't print if user entered nothing */
             write(1, command, MAX_LEN);
+            write(1, "\n", 1);
         }
     }
 
@@ -31,7 +31,7 @@ char *getstr(void) {
 
     write(1, prompt, strlen(prompt));
     n = read(0, command, MAX_LEN);
-    command[n] = '\0';
+    command[n-1] = '\0';
 
     return command;
 }
